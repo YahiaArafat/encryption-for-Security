@@ -1,0 +1,351 @@
+import java.util.*;
+import java.util.HashMap;
+
+
+public class RailFence{
+	
+static String encryptMsg1( String Text, int num) {
+		
+		int k = -1 ,row=0 ,col=0, cnt=0;	
+		char matrixArr[][]=new char[num][Text.length()];		
+		//Text = Text.replaceAll(" ","");
+		
+		
+		for(int i=0;i<num;i++)
+			for(int j=0;j<Text.length();j++)
+				matrixArr[i][j]= '\n';
+		
+		// for insert in matrix array	
+		for(int i = 0;i<Text.length();i++) {
+			matrixArr[row][col++]= Text.charAt(cnt++);
+		
+		if(row == 0 || row == num-1)
+            k= k * (-1);
+		
+	    	row+=k;
+	    	// k is always 1 or -1  ^...^
+		}
+		
+		
+		String Textencryption = "";
+		for(int i = 0; i < num; i++)
+			 for( int j = 0; j < Text.length(); ++j)
+				 if(matrixArr[i][j] != '\n')
+					 Textencryption+= matrixArr[i][j];
+		return Textencryption;
+		
+	}//////
+	
+	
+	static String encryptMsg( String Text) {
+		
+		HashMap<Character,Character> HashChar= new HashMap<Character,Character>();
+		
+	
+		HashChar.put('A', 'Z');
+		HashChar.put('B', 'Y');
+		HashChar.put('C', 'X');
+		HashChar.put('D', 'W');
+		HashChar.put('E', 'V');
+		HashChar.put('F', 'U');
+		HashChar.put('G', 'T');
+		HashChar.put('H', 'S');
+		HashChar.put('I', 'R');
+		HashChar.put('J', 'Q');
+		HashChar.put('K', 'P');
+		HashChar.put('L', 'O');
+		HashChar.put('M', 'N');
+		HashChar.put('N', 'M');
+		HashChar.put('O', 'L');
+		HashChar.put('P', 'K');
+		HashChar.put('Q', 'J');
+		HashChar.put('R', 'I');
+		HashChar.put('S', 'H');
+		HashChar.put('T', 'G');
+		HashChar.put('U', 'F');
+		HashChar.put('V', 'E');
+		HashChar.put('W', 'D');
+		HashChar.put('X', 'C');
+		HashChar.put('Y', 'B');
+		HashChar.put('Z', 'A');
+		
+		
+		
+		Text = Text.replaceAll(" ","");   ////to remove spaces
+		Text = Text.toUpperCase();       ////to Upper Case
+		
+		
+		String cipherText= "";
+		for(int i=0; i< Text.length(); i++){	
+			cipherText += HashChar.get(Text.charAt(i));	
+		}
+			
+		return cipherText;
+
+	}//////
+	
+	
+	
+static String decryptionMsg1( String cipherText, int num) {
+		
+
+	int k = -1 ,row=0 ,col=0, cnt=0;
+	char matrixArr[][]=new char[num][cipherText.length()];
+	
+	for(int i=0;i<num;i++)
+		for(int j=0;j<cipherText.length();j++)
+			matrixArr[i][j]= '\n';
+	
+	for(int i = 0;i<cipherText.length();i++) {
+		matrixArr[row][col++]= '*';
+		 if(row == 0 || row == num-1)
+	            k= k * (-1);
+	        	row += k;
+	}
+	
+	
+	for(int i = 0; i < num; ++i)
+        for(int j=0; j < cipherText.length(); ++j)
+            if(matrixArr[i][j] == '*')
+            	matrixArr[i][j] =cipherText.charAt(cnt++);
+		
+	
+		row = col = 0;
+		k = -1;
+		String Textdecryption = "";
+		for(int i = 0; i < cipherText.length(); i++){
+	        Textdecryption+= matrixArr[row][col++];
+	       
+	        if(row == 0 || row == num-1)
+	            k= k * (-1);
+	        	row += k;
+	        	
+	        // k is always 1 or -1  ^...^
+		}   
+			return Textdecryption;
+	}
+	
+
+static String decryptionMsg( String Text) {
+		
+	HashMap<Character,Character> HashChar= new HashMap<Character,Character>();
+	
+	HashChar.put('Z', 'A');
+	HashChar.put('Y', 'B');
+	HashChar.put('X', 'C');
+	HashChar.put('W', 'D');
+	HashChar.put('V', 'E');
+	HashChar.put('U', 'F');
+	HashChar.put('T', 'G');
+	HashChar.put('S', 'H');
+	HashChar.put('R', 'I');
+	HashChar.put('Q', 'J');
+	HashChar.put('P', 'K');
+	HashChar.put('O', 'L');
+	HashChar.put('N', 'M');
+	HashChar.put('M', 'N');
+	HashChar.put('L', 'O');
+	HashChar.put('K', 'P');
+	HashChar.put('J', 'Q');
+	HashChar.put('I', 'R');
+	HashChar.put('H', 'S');
+	HashChar.put('G', 'T');
+	HashChar.put('F', 'U');
+	HashChar.put('E', 'V');
+	HashChar.put('D', 'W');
+	HashChar.put('C', 'X');
+	HashChar.put('B', 'Y');
+	HashChar.put('A', 'Z');
+		
+	
+	Text = Text.replaceAll(" ","");   ////to remove spaces
+	Text = Text.toUpperCase();       ////to Upper Case
+
+	String cipherText= "";
+	for(int i=0; i< Text.length(); i++){	
+		cipherText += HashChar.get(Text.charAt(i));	
+	}
+		
+	return cipherText;
+
+}//////
+	
+
+
+static String CrackMsg( String Text) {
+	char[] Characterss=new char[] {'A', 'B', 'C', 'D','E', 'F', 'G', 'H','I', 'J', 'K', 'L','M', 'N', 'O', 'P','Q', 'R', 'S', 'T','U', 'V', 'W', 'X','Y','Z' };
+	int[] FrqCount=new int[26];
+	Character [] TableBoke= {'E', 'T', 'A', 'O','I', 'N', 'S', 'R','H', 'D', 'L', 'U','C', 'M', 'F', 'Y','W', 'G', 'P', 'B','V', 'K', 'X', 'Q','J','Z' };
+	 int totalcount_afterRemove =0;
+	HashMap<Character,Character> HashChar= new HashMap<Character,Character>();
+
+	
+	for(int i=Characterss.length-1; i >= 0 ;i--) {         ////////////length??????			
+		int count=0;
+		int totalcount = Text.length(); 
+	  totalcount_afterRemove = Text.replace(""+Characterss[i], "").length();		
+	  count= totalcount-totalcount_afterRemove;
+	  FrqCount[i]= count;
+	/// System.out.print(FrqCount[i]);
+	  
+	}
+	
+
+	int temp1=0 ;
+	Character temp2;
+	
+	for(int i=FrqCount.length-1;i>=0;i--) {
+		for(int j=i;j>=0;j--) {
+		if(FrqCount[i] >= FrqCount[j]) {
+				temp1 = FrqCount[i];
+				temp2 = Characterss[i];
+
+				FrqCount[i] = FrqCount[j];
+				Characterss[i]=Characterss[j];
+				
+				FrqCount[j] = temp1;
+				Characterss[j]=temp2;
+			}   
+		}
+	}
+
+	
+	for(int i=0 ;i<Characterss.length;i++) {
+		HashChar.put( Characterss[i], TableBoke[i]);
+		
+	}
+	
+	
+	
+	String cipherText= "";
+	for(int i=0; i< Text.length(); i++){	
+		cipherText += HashChar.get(Text.charAt(i)) ;	 /////////////////////////
+	}
+		
+	return cipherText;
+		
+  
+
+}//////
+
+static void CrackMsg1( String Text,String cipherText) {
+
+	
+	
+	
+	
+	int num=0;
+	
+	for( num=2;num<=10;num++) {
+		int k = -1 ,row=0 ,col=0, cnt=0;
+		String Textdecryption = "";
+		
+		char matrixArr[][]=new char[num][cipherText.length()];
+	for(int i=0;i<num;i++)
+		for(int j=0;j<cipherText.length();j++)
+			matrixArr[i][j]= '\n';
+	
+	for(int i = 0;i<cipherText.length();i++) {
+		matrixArr[row][col++]= '*';
+		 if(row == 0 || row == num-1)
+	            k= k * (-1);
+	        	row += k;
+	}
+	
+	
+	for(int i = 0; i < num; ++i)
+        for(int j=0; j < cipherText.length(); ++j)
+            if(matrixArr[i][j] == '*')
+            	matrixArr[i][j] =cipherText.charAt(cnt++);
+		
+	
+		row = col = 0;
+		k = -1;
+		
+		for(int i = 0; i < cipherText.length(); i++){
+	        Textdecryption+= matrixArr[row][col++];
+	       
+	        if(row == 0 || row == num-1)
+	            k= k * (-1);
+	        	row += k;
+	        	
+	        // k is always 1 or -1  ^...^
+		}  
+		
+		    System.out.println("Crack kye is:"+num+"-Crack text is:"+Textdecryption);
+			
+	       
+	}//for
+	
+	
+}
+	
+	
+	
+	public static void main(String[] args)throws Exception
+ {
+		RailFence obj=new RailFence();
+		 String Text,cipherText,decryptedText,Crack;
+		 String Text1,cipherText1,decryptedText1;
+		 int CrackKey=0;
+		 int path;
+		 Scanner scn=new Scanner(System.in);
+		 int click =0;
+		 
+		 
+	//	 while(true) {
+		 
+		 System.out.println("Click 1 for part1 encrypt Text");
+		 System.out.println("Click 2 for part2 encrypt Text");
+		 click=scn.nextInt();
+		 
+		 if(click == 1) {
+			 
+			 System.out.println("Enter plain text:");
+			 Text1=scn.nextLine();
+			 
+			 System.out.println("Enter Number of Encryption:");
+			 path=scn.nextInt();
+			 
+			 cipherText1=obj.encryptMsg1(Text1,path);
+				System.out.println("Cipher Text: \n"+cipherText1);
+				System.out.println("//////////////\n");
+				
+				 decryptedText1=obj.decryptionMsg1(cipherText1, path);
+				 System.out.println("Decrypted text is:\n"+decryptedText1);
+				 System.out.println("//////////////\n");
+				 
+				
+				 obj.CrackMsg1(Text1,cipherText1);
+				 
+				 System.out.println("//////////////\n");
+				 
+		 }else if(click == 2) {
+			 // for reading Text
+			 System.out.println("Enter plain text:");
+			 Text=scn.nextLine();
+			 
+			 
+			 cipherText=obj.encryptMsg(Text);
+			 System.out.println("Cipher Text: \n"+cipherText);
+			 System.out.println("//////////////");
+			 
+			 
+			 
+			 decryptedText=obj.decryptionMsg(cipherText);
+			System.out.println("Decrypted text is: \n"+decryptedText);
+			System.out.println("//////////////");
+			 
+			Crack= obj.CrackMsg(cipherText);
+			System.out.println("Crack text is:"+Crack);
+			 
+			 
+		 }else {
+				System.out.println("Error");
+
+		 }
+		 	
+	        
+	//	 }///while loop
+ }
+}
